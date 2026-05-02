@@ -1,0 +1,33 @@
+{
+    "name": "Zephyr Testing native_sim",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools-extension-pack",
+                "cheshirekow.cmake-format",
+                "mhutchie.git-graph"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "cmake.options.statusBarVisibility": "visible",
+                "cmake.configureArgs": [
+                    "-DBOARD=nucleo_f411re"
+                ]
+            }
+        }
+    },
+    "userEnvProbe": "loginInteractiveShell",
+    "remoteUser": "developer",
+    // "privileged": true
+    "runArgs": [
+        "--group-add=plugdev",
+        "--device=/dev/ttyACM0",
+        "--device=/dev/bus/usb"
+    ]
+    // "mounts": [
+    //     "source=/dev/bus/usb,target=/dev/bus/usb,type=bind"
+    // ]
+}

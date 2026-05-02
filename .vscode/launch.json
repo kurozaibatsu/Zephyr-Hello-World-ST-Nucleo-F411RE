@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug (OpenOCD + gdb)",
+            "type": "cppdbg",
+            "request": "launch",
+            "preLaunchTask": "openocd: start",
+            "miDebuggerPath": "/opt/west/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+            "miDebuggerArgs": "--interpreter=mi2",
+            "miDebuggerServerAddress": "localhost:3333",
+            "program": "${workspaceFolder}/build/zephyr/zephyr.elf",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "setupCommands": [
+                {
+                    "description": "Set program file",
+                    "text": "file ${workspaceFolder}/build/zephyr/zephyr.elf",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Reset and halt target",
+                    "text": "monitor reset halt",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Run",
+                    "text": "monitor reset init",
+                    "ignoreFailures": true
+                }
+            ],
+            "logging": {
+                "engineLogging": false,
+                "trace": false
+            },
+            "externalConsole": false,
+            "MIMode": "gdb",
+        }
+    ]
+}

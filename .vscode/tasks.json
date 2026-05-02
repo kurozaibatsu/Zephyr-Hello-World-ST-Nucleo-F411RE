@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "openocd: start",
+            "type": "shell",
+            "command": "/opt/west/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd",
+            "args": [
+                "-s",
+                "/opt/west/zephyr/boards/st/nucleo_f411re/support",
+                "-s",
+                "/opt/west/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts",
+                "-f",
+                "/opt/west/zephyr/boards/st/nucleo_f411re/support/openocd.cfg",
+                "-c",
+                "init",
+                "-c",
+                "targets",
+                "-c",
+                "reset init"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "openocd",
+                "pattern": [
+                    {
+                        "regexp": "Error: .*",
+                        "file": 0,
+                        "line": 0,
+                        "message": 0
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".+",
+                    "endsPattern": "Listening on port"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "group": "none"
+        }
+    ]
+}
