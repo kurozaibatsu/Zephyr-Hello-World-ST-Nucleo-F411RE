@@ -1,0 +1,84 @@
+FROM debian:13.3
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN <<EOT
+    # Install prerequisites
+    set -e
+    apt-get -y update
+    apt-get -y install --no-install-recommends \
+    git \
+    cmake \
+    ninja-build \
+    gperf \
+    ccache \
+    dfu-util \
+    device-tree-compiler \
+    wget \
+    python3-dev \
+    python3-venv \
+    python3-tk \
+    xz-utils \
+    file \
+    make \
+    gcc \
+    gcc-multilib \
+    g++-multilib \
+    cppcheck
+	# Clean up
+	apt-get clean -y
+	rm -rf /var/lib/apt/lists/*
+EOT
+
+ARG INSTALL_PATH=/opt
+ARG WEST_HOME=${INSTALL_PATH}/west
+ARG PYTHON_VENV_PATH=${WEST_HOME}/venv
+
+RUN <<EOT
+    # Initialize Python environment
+    mkdir -p ${PYTHON_VENV_PATH}
+	python3 -m venv ${PYTHON_VENV_PATH}
+EOT
+
+ENV PATH=${PYTHON_VENV_PATH}/bin:$PATH
+ARG MANIFEST_REV=v4.4.0
+# see ${ZEPHYR_BASE}/SDK_VERSION file
+ARG SDK_VERSION=1.0.1
+
+RUN <<EOT
+    # Install West
+    set -e
+    pip install west
+    west init ${WEST_HOME} --manifest-rev ${MANIFEST_REV}
+    cd ${WEST_HOME}
+    west update
+    west packages pip --install
+    cd zephyr
+    west sdk install --install-base ${WEST_HOME} --no-gnu-toolchains --no-hosttools --version ${SDK_VERSION}
+EOT
+
+RUN <<EOT
+    pip install codechecker
+EOT
+
+ENV ZEPHYR_BASE=${WEST_HOME}/zephyr
+ENV ZEPHYR_TOOLCHAIN_VARIANT=zephyr
+ENV CMAKE_PREFIX_PATH=${WEST_HOME}/zephyr-sdk-${SDK_VERSION}
+
+ARG USERNAME=developer
+ARG USER_UID=1000
+ARG USER_GID=${USER_UID}
+
+RUN <<EOT
+    # Create the user
+    groupadd --gid ${USER_GID} ${USERNAME}
+    useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} --shell /bin/bash
+    # echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME}
+    # chmod 0440 /etc/sudoers.d/${USERNAME}
+EOT
+
+USER ${USERNAME}
+WORKDIR /home/${USERNAME}
+ENV USER_CACHE_DIR=/home/${USERNAME}/.cache/zephyr
+
+# west build --pristine --board native_sim -- -DUSER_CACHE_DIR=/home/${USERNAME}/.cache/zephyr

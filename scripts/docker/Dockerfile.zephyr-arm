@@ -1,0 +1,8 @@
+FROM zephyr-base:latest
+
+ARG USERNAME=developer
+USER root
+
+RUN west sdk install --gnu-toolchains arm-zephyr-eabi
+
+USER ${USERNAME}
