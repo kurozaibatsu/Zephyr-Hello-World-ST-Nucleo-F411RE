@@ -1,0 +1,32 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "cmake.configureArgs": [
+            "-DBOARD=nucleo_f411re"
+        ],
+        "cmake.options.statusBarVisibility": "visible",
+        "cmake.environment": {
+            "PATH": "${env:HOME}/zephyrproject/.venv/bin:${env:PATH}",
+            "ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr",
+            "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr"
+        },
+        "terminal.integrated.env.linux": {
+            "PATH": "${env:HOME}/zephyrproject/.venv/bin:${env:PATH}",
+            "ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr",
+            "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr"
+        },
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-vscode.cpptools-extension-pack",
+            "ms-vscode.vscode-serial-monitor",
+            "cheshirekow.cmake-format",
+            "mhutchie.git-graph",
+        ]
+    },
+}
