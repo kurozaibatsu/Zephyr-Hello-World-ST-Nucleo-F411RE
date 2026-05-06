@@ -13,10 +13,7 @@
             ],
             "settings": {
                 "editor.formatOnSave": true,
-                "cmake.options.statusBarVisibility": "visible",
-                "cmake.configureArgs": [
-                    "-DBOARD=nucleo_f411re"
-                ]
+                "cmake.options.statusBarVisibility": "visible"
             }
         }
     },

@@ -2,10 +2,13 @@
     "version": 3,
     "configurePresets": [
         {
-            "name": "Zephyr",
-            "displayName": "Zephyr Preset",
+            "name": "nucleo_f411re",
+            "displayName": "Nucleo F411RE",
             "binaryDir": "${sourceDir}/build",
-            "generator": "Ninja"
+            "generator": "Ninja",
+            "cacheVariables": {
+                "BOARD": "nucleo_f411re"
+            }
         }
     ]
 }

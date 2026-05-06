@@ -6,9 +6,6 @@
     ],
     "settings": {
         "editor.formatOnSave": true,
-        "cmake.configureArgs": [
-            "-DBOARD=nucleo_f411re"
-        ],
         "cmake.options.statusBarVisibility": "visible",
         "cmake.environment": {
             "PATH": "${env:HOME}/zephyrproject/.venv/bin:${env:PATH}",
