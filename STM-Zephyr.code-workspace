@@ -26,4 +26,20 @@
             "mhutchie.git-graph",
         ]
     },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "West Flash",
+                "type": "shell",
+                "command": "west",
+                "args": [
+                    "flash"
+                ],
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            }
+        ]
+    }
 }
