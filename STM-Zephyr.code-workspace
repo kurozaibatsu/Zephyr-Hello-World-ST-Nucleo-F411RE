@@ -1,0 +1,73 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "cmake.options.statusBarVisibility": "icon",
+        "cmake.environment": {
+            "PATH": "${env:HOME}/zephyrproject/.venv/bin:${env:PATH}",
+            "ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr",
+            "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr"
+        },
+        "terminal.integrated.env.linux": {
+            "PATH": "${env:HOME}/zephyrproject/.venv/bin:${env:PATH}",
+            "ZEPHYR_BASE": "${env:HOME}/zephyrproject/zephyr",
+            "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr"
+        },
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-vscode.cpptools-extension-pack",
+            "ms-vscode.vscode-serial-monitor",
+            "cheshirekow.cmake-format",
+            "mhutchie.git-graph",
+            "zandr.statusbar-tasks",
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "⚡",
+                "type": "shell",
+                "command": "west",
+                "args": [
+                    "flash"
+                ],
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            },
+            {
+                "label": "Menuconfig",
+                "type": "shell",
+                "command": "ninja",
+                "args": [
+                    "-C${command:cmake.buildDirectory}",
+                    "menuconfig"
+                ],
+                "problemMatcher": [
+                    "$gcc"
+                ],
+                "presentation": {
+                    "focus": true
+                }
+            },
+            {
+                "label": "GUIconfig",
+                "type": "shell",
+                "command": "ninja",
+                "args": [
+                    "-C${command:cmake.buildDirectory}",
+                    "guiconfig"
+                ],
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            }
+        ]
+    }
+}

@@ -7,27 +7,21 @@
         "vscode": {
             "extensions": [
                 "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.vscode-serial-monitor",
                 "cheshirekow.cmake-format",
                 "mhutchie.git-graph"
             ],
             "settings": {
                 "editor.formatOnSave": true,
-                "cmake.options.statusBarVisibility": "visible",
-                "cmake.configureArgs": [
-                    "-DBOARD=nucleo_f411re"
-                ]
+                "cmake.options.statusBarVisibility": "visible"
             }
         }
     },
     "userEnvProbe": "loginInteractiveShell",
     "remoteUser": "developer",
-    // "privileged": true
     "runArgs": [
         "--group-add=plugdev",
         "--device=/dev/ttyACM0",
         "--device=/dev/bus/usb"
     ]
-    // "mounts": [
-    //     "source=/dev/bus/usb,target=/dev/bus/usb,type=bind"
-    // ]
 }
